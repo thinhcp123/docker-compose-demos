@@ -1,0 +1,20 @@
+﻿services:
+  docker-compose-demos:
+    image: docker-compose-demos
+    build:
+      context: .
+      dockerfile: docker-compose-demos/Dockerfile
+    environment:
+      - MSSQL_SA_PASSWORD=Password1*
+    ports:
+      - "5000:8080"
+    depends_on:
+      - docker-demo-sqlserver
+  docker-demo-sqlserver:
+    container_name: docker-demo-sqlserver-container
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    environment:
+      - ACCEPT_EULA=Y
+      - MSSQL_SA_PASSWORD=Password1*
+    ports:
+      - "1433:1433"
